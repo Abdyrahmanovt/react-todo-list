@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTrash, faEdit} from '@fortawesome/free-solid-svg-icons'
 import {nanoid} from 'nanoid'
 import TodoItem from "../TodoItem";
+import TodoHeader from "../TodoHeader";
 
 const Todo = () => {
     const [todos, setTodos] = useState([
@@ -27,22 +28,23 @@ const Todo = () => {
         setTodos([...todos, newTodo])
         setValue('')
     }
-
     const deleteTodo = (id) => {
         setTodos(todos.filter(item => item.id !== id))
+    }
+
+    const saveTodo = (id, title) => {
+        setTodos(todos.map(item => item.id === id ? {...item , title} : item ))
     }
 
     return (
         <div className='row my-5'>
             <div className="col-md-4 offset-md-4">
-                <div className="d-flex mb-4">
-                    <input type="text" className='form-control me-2' value={value} onChange={handleInput}/>
-                    <button className="btn btn-primary" onClick={addTodo} disabled={!value.trim()}>Добавить</button>
-                </div>
+                <TodoHeader value={value} handleInput={handleInput} addTodo={addTodo} length={todos.length}/>
+                <button type='button' className='btn btn-danger mt-3 w-100' onClick={()=> setTodos([])}>Clear all</button>
                 <ul className='list-group'>
                     {
                         todos.map(item =>
-                            <TodoItem item={item}  deleteTodo={deleteTodo}/>
+                            <TodoItem item={item}  deleteTodo={deleteTodo} saveTodo={saveTodo}/>
                         )
                     }
                 </ul>
