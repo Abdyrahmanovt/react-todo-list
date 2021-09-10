@@ -4,14 +4,18 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = ({item, deleteTodo}) => {
     const [isEdit, setIsEdit] = useState(false)
+    const [newTitle,setNewTitle] = useState(item.title)
     const handleEdit = () => {
         setIsEdit(true)
+    }
+    const handleNewValue=(e)=>{
+        setNewTitle(e.target.value)
     }
 
     return (
         <li key={item.id} className='list-group-item d-flex justify-content-between align-items-center'>
             {
-                isEdit ? <input type="text" className='form-control'value={item.title} /> :
+                isEdit ? <input type="text" className='form-control' defaultValue={item.title}  onChange={handleNewValue}/> :
                     <span>{item.title}</span>
             }
             <div className='d-flex'>
