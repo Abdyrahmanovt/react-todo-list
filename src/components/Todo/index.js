@@ -37,7 +37,7 @@ const Todo = () => {
     }
 
     return (
-        <div className='row my-5'>
+        <div className='row my-5 '>
             <div className="col-md-4 offset-md-4">
                 <TodoHeader value={value} handleInput={handleInput} addTodo={addTodo} length={todos.length}/>
                 <button type='button' className='btn btn-danger mt-3 w-100' onClick={()=> setTodos([])}>Clear all</button>
